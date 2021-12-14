@@ -1,0 +1,101 @@
+#! /bin/bash
+
+# Dejar al sistema docker que acceda al entorno gráfico
+xhost +local:root
+
+# Ejecutar el contenedor comprobando si ha sido creado o no
+
+#variable nombre contenedor
+container_name=bellscheduler
+
+#variable nombre imagen
+image_name=aosucas499/bellscheduler-dre:armhf
+
+#variable carpeta configuración para compartir con el contenedor
+STORAGE_FOLDER=/home/$SUDO_USER/BELLSCHEDULER
+MUSIC_FOLDER=/home/$SUDO_USER/BELLSCHEDULER/music
+CONFIG_FOLDER=/home/$SUDO_USER/BELLSCHEDULER/config
+BELLS_FOLDER=/home/$SUDO_USER/BELLSCHEDULER/bellslist
+
+#rm -r $STORAGE_FOLDER
+#rm -r $CONFIG_FOLDER
+#rm -r $MUSIC_FOLDER
+#rm -r $BELLS_FOLDER
+
+
+if [ -d "$STORAGE_FOLDER" ]; then
+    echo "Carpeta $STORAGE_FOLDER existe"
+else
+    echo "Creando carpeta $STORAGE_FOLDER"
+    mkdir $STORAGE_FOLDER
+    chown -R $SUDO_USER:$SUDO_USER $STORAGE_FOLDER
+fi
+
+if [ -d "$MUSIC_FOLDER" ]; then
+    echo "Carpeta $MUSIC_FOLDER existe"
+else
+    echo "Creando carpeta $MUSIC_FOLDER"
+    mkdir $MUSIC_FOLDER
+    chown -R $SUDO_USER:$SUDO_USER $MUSIC_FOLDER
+fi
+
+if [ -d "$BELLS_FOLDER" ]; then
+    echo "Carpeta $BELLS_FOLDER existe"
+else
+    echo "Creando carpeta $BELLS_FOLDER"
+    mkdir $BELLS_FOLDER
+    chown -R $SUDO_USER:$SUDO_USER $BELLS_FOLDER
+fi
+
+docker stop $container_name 
+#&& docker rm $container_name 
+
+#Descargamos mp3 de prueba en la carpeta compartida
+#wget https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_5MG.mp3 -O $MUSIC_FOLDER/file_example_MP3_5MG.mp3
+
+# Lanzamos el contenedor creándolo si no existe.
+  
+sleep 5
+if docker ps -a --format '{{.Names}}' | grep -Eq "^${container_name}\$"; then
+   	docker start ${container_name}
+
+else
+
+docker run -d --privileged \
+ --net=host -v /tmp/.X11-unix:/tmp/.X11-unix \
+ --device /dev/snd \
+ -e DISPLAY="$DISPLAY" \
+ --volume="/run/dbus/system_bus_socket:/run/dbus/system_bus_socket" \
+ -e XAUTHORITY=/run/user/$SUDO_UID/gdm/Xauthority \
+ -e XDG_RUNTIME_DIR=/run/user/$SUDO_UID \
+ -e HOST_USER=$SUDO_USER \
+ -v /etc/timezone:/etc/timezone:ro \
+ -v /etc/localtime:/etc/localtime:ro \
+ -v /run/user/$SUDO_UID:/run/user/$SUDO_UID \
+ -v /etc/group:/etc/group:ro \
+ -v /etc/passwd:/etc/passwd:ro \
+ -v /etc/shadow:/etc/shadow:ro \
+ -v /etc/cron.d:/etc/cron.d \
+ -v /usr/local/share/bellScheduler/:/usr/local/share/bellScheduler/:rw \
+ -v $MUSIC_FOLDER:/root:rw \
+ -v $BELLS_FOLDER:/etc/bellScheduler:rw \
+ --workdir=/root/ \
+ --name ${container_name} ${image_name} 
+
+fi
+
+#--volume="/run/user/$SUDO_UID/bus/run/user/$SUDO_UID/bus" \
+#-v /run/user/$SUDO_UID/gdm/Xauthority:/run/user/$SUDO_UID/gdm/Xauthority \
+#-v /usr/local/share/bellScheduler/:/usr/local/share/bellScheduler/:rw \
+ #-v /etc/cron.d/:/etc/cron.d/:rw \
+# --volume="/run/dbus/system_bus_socket:/run/dbus/system_bus_socket" \
+# -v /home/admin/.config/pulse/cookie:/root/.config/pulse/cookie \
+# --group-add $(getent group audio | cut -d: -f3) \
+#-e PULSE_SERVER=unix:/run/user/$SUDO_UID/pulse/native \
+#  --volume=/run/user/$SUDO_UID/pulse/native:/run/user/$SUDO_UID/pulse/native \
+ #--volume=/run/user/1001:/run/user/1001/pulse \
+ #-v /etc/pulse:/etc/pulse \
+ # -v /home/admin:/home/admin \
+ #--user=$(id -u $SUDO_USER):$(id -g $SUDO_USER) \
+ # -e NO_AT_BRIDGE=1 \
+ # --volume="/run/dbus/system_bus_socket:/run/dbus/system_bus_socket" \

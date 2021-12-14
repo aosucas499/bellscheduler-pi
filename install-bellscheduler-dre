@@ -1,0 +1,111 @@
+#! /bin/bash
+
+clear
+# Variables 
+#
+ROJO="\033[1;31m"
+NORMAL="\033[0m"
+AZUL="\033[1;34m"
+DISTRO=$(lsb_release -cs)
+DESKTOP=$XDG_CURRENT_DESKTOP
+
+# # Función que repara la hora del sistema conectado por WIFI en cada inicio.
+# ---
+
+if [[ -f /usr/bin/fix-ntp ]]; then
+	echo -e "${AZUL}Ya estaba corregida la hora por NTP${NORMAL}"
+	return
+	fi
+	
+	# Aplicamos el cambio
+	# ---
+
+    sudo timedatectl set-timezone Europe/Madrid
+    sudo cp ./ntp/fix-ntp /usr/bin
+    sudo chmod +x /usr/bin/fix-ntp
+    sudo chown root:root ./ntp/zz-fix-ntp
+    sudo chmod 0440 ./ntp/zz-fix-ntp
+    sudo cp ./ntp/zz-fix-ntp /etc/sudoers.d/ 
+    sudo cp ./ntp/fix-ntp.desktop /etc/xdg/autostart/
+    echo -e "${ROJO}Fix-ntp time instalado${NORMAL}"
+
+# Este script funciona en PI OS
+#
+	echo ""	
+	echo -e "${ROJO}Solicitando contraseña del usuario con derechos de administrador${NORMAL}"
+	echo ""
+	echo -e "${ROJO}Asking password of the user with administrations rights${NORMAL}"
+	echo ""
+	sudo echo ""
+	
+# Borrando antiguos archivos de bellscheduler-dre
+#
+	echo ""	
+	echo -e "${ROJO}Borrando si existen archivos de anteriores instalaciones${NORMAL}"
+	echo ""
+	echo -e "${ROJO} Deleting if there are files from previous installations${NORMAL}"
+	echo ""
+	sudo chmod +x uninstall-bellscheduler-dre
+	sudo ./uninstall-bellscheduler-dre
+	
+
+	echo ""
+	echo -e "${AZUL}continúa el script...${NORMAL}"
+	echo ""
+	echo -e "${AZUL}the script continues...${NORMAL}"
+	echo ""
+	
+# Descarga la imagen docker
+#
+	echo ""
+	echo -e "${AZUL}Descargando la imagen docker que contiene la app...${NORMAL}"
+	echo ""
+	echo -e "${AZUL}Downloading the docker image with the app...${NORMAL}"
+	echo ""
+	sudo docker pull aosucas499/bellscheduler-dre:armhf
+
+# Hacer la aplicación iniciable en cada reinicio y usable para cualquier usuario sin "sudo"
+#
+	echo ""
+	echo -e "${AZUL}Configurando la app para que arranque en cada inicio de sesión...${NORMAL}"
+	echo ""
+	echo -e "${AZUL}Settings up the app to boot at init...${NORMAL}"
+	echo ""
+	sudo cp bellscheduler-dre /usr/bin
+    	sudo chmod +x /usr/bin/bellscheduler-dre
+    	sudo chown root:root zz-bellscheduler-dre
+    	sudo chmod 0440 zz-bellscheduler-dre
+    	sudo cp zz-bellscheduler-dre /etc/sudoers.d/ 
+    	#sudo cp bellscheduler-dre.desktop /etc/xdg/autostart/
+    	sudo cp bellscheduler-dre.desktop /usr/share/applications/
+	
+# Copiar la aplicación bellscheduler-dre-appindicator en la carpeta python
+#
+
+	echo ""
+	echo -e "${AZUL}Instalando la app de la barra del sistema para parar la música...${NORMAL}"
+	echo ""
+	echo -e "${AZUL}Installing system tray icon to stop music...${NORMAL}"
+	echo ""
+	sudo cp -r bellscheduler-dre-appindicator /usr/lib/python3/dist-packages
+	sudo cp bellscheduler-dre-appindicator/bellscheduler-dre-appindicator.desktop /etc/xdg/autostart/
+	
+# Añadir iconos originales al sistema
+#
+	sudo cp  icons/bell-scheduler.png /usr/share/icons
+
+# Crear grupo necesario para acceder a la aplicación bell-scheduler	
+# y se añade el usuario al grupo 
+	sudo groupadd teachers
+	sudo usermod -a -G teachers $USER
+	
+# Notificaciones al terminar
+#
+	echo ""
+	echo -e "${ROJO}Reinicie el equipo para que se ejecute la aplicación${NORMAL}"
+	echo ""
+	
+# Borrar los repositorios de git y archivos de instalación
+#
+	cd ..
+	sudo rm -r bellscheduler-dre
