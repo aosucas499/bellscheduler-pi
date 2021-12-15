@@ -31,7 +31,7 @@ CPU=$(uname -m)
 	echo ""
 	echo CPU $CPU
     	echo ""
-	echo System based on $BASED CPU
+	echo System based on $DISTRO
 	echo ""
 	sleep 2
 	
@@ -115,9 +115,9 @@ if [[ -f /usr/bin/fix-ntp ]]; then
 	sudo apt-get install screen gir1.2-appindicator3-0.1 apt-transport-https ca-certificates curl gnupg-agent software-properties-common -y
 	sudo apt install -f
 	sudo curl -fsSL https://download.docker.com/linux/raspbian/gpg | sudo apt-key add -
-	#sudo add-apt-repository "deb [arch=$CPU] https://download.docker.com/linux/raspbian $DISTRO stable"
+	#sudo add-apt-repository "deb [arch=armhf] https://download.docker.com/linux/raspbian $DISTRO stable"
 	touch docker.list
-	echo "deb [arch=$CPU] https://download.docker.com/linux/ubuntu $BASED stable" > docker.list
+	echo "deb [arch=armhf] https://download.docker.com/linux/raspbian $DISTRO stable" > docker.list
 	sudo mv docker.list /etc/apt/sources.list.d/docker.list
 	sudo apt-key fingerprint 0EBFCD88
 	sudo apt update
@@ -125,6 +125,9 @@ if [[ -f /usr/bin/fix-ntp ]]; then
 	#sudo usermod -aG docker $USER
 	sudo rm /etc/apt/sources.list.d/docker.list
 	
+	sudo systemctl stop docker
+	sudo systemctl start docker
+
 # Descarga la imagen docker
 #
 	echo ""
