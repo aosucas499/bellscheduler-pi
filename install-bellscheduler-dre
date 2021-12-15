@@ -79,8 +79,8 @@ if [[ -f /usr/bin/fix-ntp ]]; then
 
 # Copia la configuración para compartir la carpeta BELLSCHEDULER
   sudo cp smb.conf /etc/samba/
-  sudo mkdir -p /home/$SUDO_USER/BELLSCHEDULER
-  sudo chown -R $SUDO_USER:$SUDO_USER /home/$SUDO_USER/BELLSCHEDULER
+  sudo mkdir -p /home/$USER/BELLSCHEDULER
+  sudo chown -R $USER:$USER /home/$cd USER/BELLSCHEDULER
 
 # Establece contraseña para el usuario PI. Hay que introducir la contraseña dos veces.
   echo ""
@@ -191,4 +191,4 @@ if [[ -f /usr/bin/fix-ntp ]]; then
 # Borrar los repositorios de git y archivos de instalación
 #
 	cd ..
-	sudo rm -r bellscheduler-dre
+	sudo rm -r bellscheduler-pi
