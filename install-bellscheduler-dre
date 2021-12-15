@@ -6,8 +6,43 @@ clear
 ROJO="\033[1;31m"
 NORMAL="\033[0m"
 AZUL="\033[1;34m"
-DISTRO=$(lsb_release -cs)
-DESKTOP=$XDG_CURRENT_DESKTOP
+DISTRO=$(uname -m)
+
+# Establecer la cpu en la que se basa el dispositivo.
+# 
+	if [[ $DISTRO = armv7l ]]
+	then
+        	BASED=armv7l
+    	elif
+    	[[ $DISTRO = aarch64 ]]
+    	then
+        	BASED=aarch64
+    	else
+        	echo ""
+		echo -e "${ROJO}Esta instalación no es compatible con tu sistema${NORMAL}" 
+		echo ""
+		echo -e "${ROJO}This install process is not compatible with your system${NORMAL}"
+		echo ""
+		sleep 4
+		exit
+    	fi
+
+	echo ""
+	echo CPU $DISTRO
+    	echo ""
+	echo System based on $BASED CPU
+	echo ""
+	sleep 2
+	
+	
+# Este script funciona en PI OS o sistemas arm.
+#
+	echo ""	
+	echo -e "${ROJO}Solicitando contraseña del usuario con derechos de administrador${NORMAL}"
+	echo ""
+	echo -e "${ROJO}Asking password of the user with administrations rights${NORMAL}"
+	echo ""
+	sudo echo ""
 
 # # Función que repara la hora del sistema conectado por WIFI en cada inicio.
 # ---
@@ -28,15 +63,6 @@ if [[ -f /usr/bin/fix-ntp ]]; then
     sudo cp ./ntp/zz-fix-ntp /etc/sudoers.d/ 
     sudo cp ./ntp/fix-ntp.desktop /etc/xdg/autostart/
     echo -e "${ROJO}Fix-ntp time instalado${NORMAL}"
-
-# Este script funciona en PI OS
-#
-	echo ""	
-	echo -e "${ROJO}Solicitando contraseña del usuario con derechos de administrador${NORMAL}"
-	echo ""
-	echo -e "${ROJO}Asking password of the user with administrations rights${NORMAL}"
-	echo ""
-	sudo echo ""
 	
 # Borrando antiguos archivos de bellscheduler-dre
 #
