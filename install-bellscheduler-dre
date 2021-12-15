@@ -63,6 +63,27 @@ if [[ -f /usr/bin/fix-ntp ]]; then
     sudo cp ./ntp/zz-fix-ntp /etc/sudoers.d/ 
     sudo cp ./ntp/fix-ntp.desktop /etc/xdg/autostart/
     echo -e "${ROJO}Fix-ntp time instalado${NORMAL}"
+    
+# Instala el servicio de compartición en red local SAMBA
+
+  sudo apt install samba samba-common-bin -y
+
+# Copia la configuración para compartir la carpeta BELLSCHEDULER
+  sudo cp smb.conf /etc/samba/
+
+# Establece contraseña para el usuario PI. Hay que introducir la contraseña dos veces.
+  echo ""
+  echo ""
+  echo -e "${AZUL}Introduza a continuación una contraseña asociada al usuario pi,${NORMAL}"
+  echo -e "${AZUL}para compartir archivos en red local${NORMAL}"
+  echo -e "${AZUL}por ejemplo la copia de seguridad de las alarmas o los sonidos${NORMAL}"
+  sudo smbpasswd -a pi
+
+# Reinicia y activa el servicio SAMBA en el equipo
+
+  sudo systemctl restart smbd
+  sudo systemctl enable smbd
+  echo -e "${ROJO}Instalado SAMBA${NORMAL}"
 	
 # Borrando antiguos archivos de bellscheduler-dre
 #
