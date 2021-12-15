@@ -34,8 +34,15 @@ CPU=$(uname -m)
 	echo System based on $DISTRO
 	echo ""
 	sleep 2
-	
-	
+# Cambiamos la salida de audio al jack de salida 3.5
+	echo ""	
+	echo -e "${ROJO}Cambiando la salida de audio al jack 3.5 mm${NORMAL}"
+	echo ""
+	echo -e "${ROJO}changing audio output to 3.5 mm jack raspberry pi${NORMAL}"
+	echo ""
+	sudo echo ""
+	amixer cset numid=3 1
+
 # Este script funciona en PI OS o sistemas arm.
 #
 	echo ""	
