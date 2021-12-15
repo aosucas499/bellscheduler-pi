@@ -6,15 +6,16 @@ clear
 ROJO="\033[1;31m"
 NORMAL="\033[0m"
 AZUL="\033[1;34m"
-DISTRO=$(uname -m)
+DISTRO=$(lsb_release -cs)
+CPU=$(uname -m)
 
 # Establecer la cpu en la que se basa el dispositivo.
 # 
-	if [[ $DISTRO = armv7l ]]
+	if [[ $CPU = armv7l ]]
 	then
         	BASED=armv7l
     	elif
-    	[[ $DISTRO = aarch64 ]]
+    	[[ $CPU = aarch64 ]]
     	then
         	BASED=aarch64
     	else
@@ -28,7 +29,7 @@ DISTRO=$(uname -m)
     	fi
 
 	echo ""
-	echo CPU $DISTRO
+	echo CPU $CPU
     	echo ""
 	echo System based on $BASED CPU
 	echo ""
@@ -101,6 +102,28 @@ if [[ -f /usr/bin/fix-ntp ]]; then
 	echo ""
 	echo -e "${AZUL}the script continues...${NORMAL}"
 	echo ""
+
+# Instalar docker
+#
+	echo ""
+	echo -e "${AZUL}Instalando Docker...${NORMAL}"
+	echo ""
+	echo -e "${AZUL}Installing Docker...${NORMAL}"
+	echo ""
+	sudo apt update
+	sudo apt install -f
+	sudo apt-get install screen gir1.2-appindicator3-0.1 apt-transport-https ca-certificates curl gnupg-agent software-properties-common -y
+	sudo apt install -f
+	sudo curl -fsSL https://download.docker.com/linux/raspbian/gpg | sudo apt-key add -
+	#sudo add-apt-repository "deb [arch=$CPU] https://download.docker.com/linux/raspbian $DISTRO stable"
+	touch docker.list
+	echo "deb [arch=$CPU] https://download.docker.com/linux/ubuntu $BASED stable" > docker.list
+	sudo mv docker.list /etc/apt/sources.list.d/docker.list
+	sudo apt-key fingerprint 0EBFCD88
+	sudo apt update
+	sudo apt install docker-ce docker-ce-cli containerd.io -y 
+	#sudo usermod -aG docker $USER
+	sudo rm /etc/apt/sources.list.d/docker.list
 	
 # Descarga la imagen docker
 #
