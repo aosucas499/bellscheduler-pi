@@ -41,11 +41,15 @@ Esta aplicación proviene del sistema [Lliurex](https://portal.edu.gva.es/lliure
 
 ## TUTORIALES
 
++ Intrucciones y recomendaciones de configuración del sistema: [Aquí](https://github.com/aosucas499/bellscheduler-pi/wiki/Preconfiguraci%C3%B3n-del-sistema)
+
 + Manual de Instrucciones de la app original (puede que alguna función no funcione): [Aquí](https://github.com/aosucas499/bellscheduler-dre/raw/docker-xenial/manual%20de%20Bell%20Scheduler-alarmas%20del%20cole.pdf)
 
-+ Acceder a la raspberry de forma remota desde otro PC para no necesitar monitor en la Raspberry PI: [Aquí](https://www.programoergosum.es/tutoriales/escritorio-remoto-a-traves-de-vnc/) 
++ Usa archivos de audio alojados en tu sistema: [Aquí](https://github.com/aosucas499/bellscheduler-pi/wiki/Usar-archivos-de-audio-con-el-programa)
 
-+ Intrucciones y recomendaciones de configuración del sistema: [Aquí](https://github.com/aosucas499/bellscheduler-pi/wiki/Preconfiguraci%C3%B3n-del-sistema)
++ Importar y Exportar alarmas (si usas backup de la app original de Lliurex, leer la [WIKI.](https://github.com/aosucas499/bellscheduler-pi/wiki/Exportar-alarmas-de-la-app-original-de-lliurex)
+
++ Acceder a la raspberry de forma remota desde otro PC para no necesitar monitor en la Raspberry PI: [Aquí](https://www.programoergosum.es/tutoriales/escritorio-remoto-a-traves-de-vnc/) 
 
 + Copiar sonidos y copia de seguridad de Android a la Raspberry: [Aquí](https://github.com/aosucas499/bellscheduler-pi/wiki/Sonidos-y-copia-de-seguridad-de-Android-a-la-Raspberry)
 
