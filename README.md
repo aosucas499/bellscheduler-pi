@@ -6,13 +6,6 @@ Aplicación [dockerizada](https://www.docker.com/) Bell-Scheduler para su uso en
 
 **Bell Scheduler** es una aplicación destinada a programar alarmas reproduciendo el sonido que se haya asociado en cada alarma, a los días de la semana y horas programadas.
 
-El proyecto nace de la necesidad de programar alarmas que suenen en los tramos horarios del colegio. Primeramente se usó un PC con el proyecto [BellScheduler-dre](https://github.com/aosucas499/bellscheduler-dre) y posteriormente con este proyecto se instala la app en una raspberry pi que se enciende cada mañana automáticamente con un temporizador donde se enchufa la raspberry y se apaga al final la jornada.
-
-El sistema de megafonía del colegio va enchufado por cable de audio al jack 3,5mm de la raspberry pi, por tanto, **es importante seleccionar la salida de audio del sistema de la raspberry, cambiando la salida HDMI a salida analógica.** (Se hace en la esquina superior derecha del sistema, pulsando con el botón derecho en el icono del altavos.)
-
-Tras configurar los sonidos, las horas y los días con la app bellscheduler-pi, la raspberry pi será accesible por [SAMBA](https://github.com/aosucas499/bellscheduler-pi/wiki/Sonidos-y-copia-de-seguridad-de-Android-a-la-Raspberry) para enviar sonidos y copias de seguridad y por [VNC](https://www.programoergosum.es/tutoriales/escritorio-remoto-a-traves-de-vnc/) para acceder al escritorio y poder manegarla remotamente sin necesitar un monitor.
-
-
 Esta aplicación proviene del sistema [Lliurex](https://portal.edu.gva.es/lliurex/va/descarregues/).
 
 ![](https://github.com/aosucas499/bellscheduler-dre/raw/main/icons/bellscheduler-place.png)
@@ -46,6 +39,14 @@ Esta aplicación proviene del sistema [Lliurex](https://portal.edu.gva.es/lliure
     ./install-bellscheduler-dre
     
     sudo reboot (Reboot the system - Reiniciar el sistema)
+    
+# USO PROYECTO CENTROS EDUCATIVOS
+
+El proyecto nace de la necesidad de programar alarmas que suenen en los tramos horarios del colegio. Primeramente se usó un PC con el proyecto [BellScheduler-dre](https://github.com/aosucas499/bellscheduler-dre) y posteriormente con este proyecto se instala la app en una raspberry pi que se enciende cada mañana automáticamente con un temporizador donde se enchufa la raspberry y se apaga al final la jornada.
+
+El sistema de megafonía del colegio va enchufado por cable de audio al jack 3,5mm de la raspberry pi, por tanto, **es importante seleccionar la salida de audio del sistema de la raspberry, cambiando la salida HDMI a salida analógica.** (Se hace en la esquina superior derecha del sistema, pulsando con el botón derecho en el icono del altavos.)
+
+Tras configurar los sonidos, las horas y los días con la app bellscheduler-pi, la raspberry pi será accesible por [SAMBA](https://github.com/aosucas499/bellscheduler-pi/wiki/Sonidos-y-copia-de-seguridad-de-Android-a-la-Raspberry) para enviar sonidos y copias de seguridad y por [VNC](https://www.programoergosum.es/tutoriales/escritorio-remoto-a-traves-de-vnc/) para acceder al escritorio y poder manegarla remotamente sin necesitar un monitor.
 
 ## TUTORIALES
 
