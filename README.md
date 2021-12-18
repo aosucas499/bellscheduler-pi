@@ -8,7 +8,7 @@ Aplicación [dockerizada](https://www.docker.com/) Bell-Scheduler para su uso en
 
 Esta aplicación proviene del sistema [Lliurex](https://portal.edu.gva.es/lliurex/va/descarregues/).
 
-![](https://github.com/aosucas499/bellscheduler-pi/raw/main/icons/bellscheduler-place.png)
+![](https://github.com/aosucas499/bellscheduler-pi/blob/main/icons/bellscheduler-place.jpg)
 
 ## Compatibilidad y funcionamiento
 + Compatible con [Raspberry Pi OS](https://www.raspberrypi.com/software/operating-systems/#raspberry-pi-os-legacy) (Legacy basado en debian buster). No descarges el más actual, utiliza la versión Legacy.
