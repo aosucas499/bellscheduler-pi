@@ -11,7 +11,7 @@ Esta aplicación proviene del sistema [Lliurex](https://portal.edu.gva.es/lliure
 ![](https://github.com/aosucas499/bellscheduler-pi/blob/main/icons/bellscheduler-place.jpg)
 
 ## Compatibilidad y funcionamiento
-+ Compatible con [Raspberry Pi OS](https://www.raspberrypi.com/software/operating-systems/#raspberry-pi-os-legacy) (Legacy basado en debian buster). No descarges el más actual, utiliza la versión Legacy.
++ Compatible con [Raspberry Pi OS](https://downloads.raspberrypi.org/raspios_armhf/images/raspios_armhf-2021-05-28/2021-05-07-raspios-buster-armhf.zip) (Legacy basado en debian buster). No descarges el más actual, utiliza solo la versión del enlace anterior.
 + Sonido a las horas y días de la semana programados, usando archivos de sonido.
 + Usa archivos de audio alojados en tu sistema, explicado en la [WIKI.](https://github.com/aosucas499/bellscheduler-pi/wiki/Usar-archivos-de-audio-con-el-programa)
 + Importar y Exportar alarmas (si usas backup de la app original de Lliurex, leer la [WIKI.](https://github.com/aosucas499/bellscheduler-pi/wiki/Exportar-alarmas-de-la-app-original-de-lliurex)
